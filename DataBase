@@ -1,0 +1,38 @@
+-- Tạo Cơ sở dữ liệu
+CREATE DATABASE QuanlySV;
+GO
+
+-- Sử dụng Cơ sở dữ liệu
+USE QuanlySV;
+GO
+
+-- Tạo bảng Lop
+CREATE TABLE Lop (
+    MaLop CHAR(3) PRIMARY KEY, -- Khoá chính
+    TenLop NVARCHAR(30) NOT NULL
+);
+GO
+
+-- Tạo bảng Sinhvien
+CREATE TABLE Sinhvien (
+    MaSV CHAR(6) PRIMARY KEY, -- Khoá chính
+    HotenSV NVARCHAR(40),
+    MaLop CHAR(3), -- Khoá ngoại
+    NgaySinh DATETIME,
+    CONSTRAINT FK_Sinhvien_Lop FOREIGN KEY (MaLop) REFERENCES Lop(MaLop) -- Thiết lập quan hệ
+);
+GO
+
+-- Thêm dữ liệu vào bảng Lop
+INSERT INTO Lop (MaLop, TenLop) VALUES
+('L01', N'Lớp Toán'),
+('L02', N'Lớp Văn');
+GO
+
+-- Thêm dữ liệu vào bảng Sinhvien
+INSERT INTO Sinhvien (MaSV, HotenSV, MaLop, NgaySinh) VALUES
+('SV0001', N'Nguyễn Văn A', 'L01', '2000-01-01'),
+('SV0002', N'Lê Thị B', 'L01', '2001-02-15'),
+('SV0003', N'Trần Văn C', 'L02', '2002-03-10'),
+('SV0004', N'Phạm Thị D', 'L02', '2000-05-20');
+GO
